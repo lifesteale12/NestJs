@@ -1,5 +1,6 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Req } from '@nestjs/common';
 import { AppService } from './app.service';
+import { RouteConfig } from '@nestjs/platform-fastify';
 
 @Controller()
 export class AppController {
@@ -8,5 +9,11 @@ export class AppController {
   @Get()
   getHello(): string {
     return this.appService.getHello();
+  }
+
+  @Get('routingconfig')
+  @RouteConfig({ output: 'test routingconfig' })
+  getRoutingConfig(@Req() req): string {
+    return req.routeConfig.output;
   }
 }
